@@ -1,0 +1,3 @@
+JWT$ openssl rand -base64 32
+KGRCOGaYW6G87qUJgt0JV7AGFlWISs7CwtwWZl6PL7o=
+
