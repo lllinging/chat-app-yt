@@ -1,3 +1,21 @@
 JWT$ openssl rand -base64 32
 KGRCOGaYW6G87qUJgt0JV7AGFlWISs7CwtwWZl6PL7o=
 
+git upload
+1.yux20@yu MINGW64 ~/Documents/onlinecourselearning/projects/CHAT-APP-YT
+$ git init
+2.yux20@yu MINGW64 ~/Documents/onlinecourselearning/projects/CHAT-APP-YT (main)
+$ git add .
+3. git commit -g? ""
+
+ npm install reat-icons --save
+
+
+tailwind css install vite
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+daisy UI
+
+extension: ES7 React/Redux/GraphQL/React-Native snippets
+rafce
