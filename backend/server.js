@@ -9,12 +9,17 @@ import messageRoutes from './routes/message.routes.js';
 import userRoutes from './routes/user.routes.js';
 
 import connectToMongoDB from './db/connectToMongoDB.js';
-import Message from './models/message.model.js';
+// import Message from './models/message.model.js';
+
+dotenv.config({ path: '../.env' });
+
+console.log('process.env', process.env.PORT);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+console.log('process.env', process.env.PORT);
 
-dotenv.config();
+
 
 //allow us to extract this filed from req.body
 app.use(express.json());//middleware to parse the incoming requests with JSON payloads (from POST requests.body)
@@ -32,5 +37,5 @@ app.use("/api/users", userRoutes);
 
 app.listen(PORT, () => {
     connectToMongoDB();
-    console.log('Server is running on port ${PORT}');
+    console.log(`Server is running on port ${PORT}`);
 });

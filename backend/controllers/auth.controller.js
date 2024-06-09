@@ -1,9 +1,10 @@
-import bcypt from "bcryptjs";
+import bcrypt from "bcryptjs";
 
 import User from "../models/user.model.js";
 import generateTokenAndSetCookie from "../utils/generateToken.js";
 
 export const signup = async (req, res) => {
+    console.log("REQ");
     try {
         const { fullName, username, password, confirmPassword, gender } = req.body;
 
@@ -18,12 +19,12 @@ export const signup = async (req, res) => {
         }
 
         //hash the password here
-        const salt = await bcypt.genSalt(10);
-        const hashedPassword = await bcypt.hash(password, salt);
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
         //https://avatar-placeholder.iran.liara.run/document
-        const boyProfilePic = "https://avatar-placeholder.iran.liara.run/pblic/boy?username=${username}";
-        const girlProfilePic = "https://avatar-placeholder.iran.liara.run/pblic/girl?username=${username}";
+        const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
+        const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
 
         const newUser = new User({
             fullName,
@@ -60,9 +61,12 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
     try {
         const { username, password } = req.body;
+        console.log("authcontoller", req.body, {username, password});
 
         const user = await User.findOne({username});
-        const isPasswordCorrect = await bcypt.compare(password, user?.password || "");
+        console.log("user", user)
+        const isPasswordCorrect = await bcrypt.compare(password, user?.password || "");
+        console.log("isPasswordCorrect", isPasswordCorrect);
 
         if (!user || !isPasswordCorrect) {
             return res.status(400).json({ error: "invalid username or password" });
