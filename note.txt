@@ -25,3 +25,5 @@ rafce
 error handler: react-hot-toast.com(inside frontend)
 
 npm install zustand---global state
+
+PS C:\Users\yux20\Documents\onlinecourselearning\projects\CHAT-APP-YT\frontend> npm i socket.io-client
