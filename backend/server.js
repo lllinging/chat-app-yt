@@ -1,5 +1,6 @@
 // const express = require('express');
 // const dotenv = require('dotenv');//to use .env file/ environemtn varaibles env.PORT 
+import path from 'path';
 import express from 'express';//ES6
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
@@ -15,11 +16,12 @@ import { app, server } from './socket/socket.js';
 
 dotenv.config({ path: '../.env' });
 
-console.log('process.env', process.env.PORT);
 
 // const app = express();
-const PORT = process.env.PORT || 5000;
-console.log('process.env', process.env.PORT);
+const PORT = process.env.PORT || 8000;
+
+//_dirname is the current directory name
+const _dirname = path.resolve();
 
 
 
@@ -27,15 +29,18 @@ console.log('process.env', process.env.PORT);
 app.use(express.json());//middleware to parse the incoming requests with JSON payloads (from POST requests.body)
 app.use(cookieParser());//middleware to parse the incoming cookies
 
-app.get('/', (req, res) => {
-    //root route http://localhost:5000
-    res.send('Hello0000000 gggWorld');
-});
-
 //when we visit this /api/auth route, we are going to call this routes
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
+
+//purpose: to serve the static files from the React app
+app.use(express.static(path.join(_dirname, '/frontend/dist')));
+
+app.get('*', (req, res) => {
+    //serve the index.html file     
+    res.sendFile(path.join(_dirname, 'frontend', 'dist', 'index.html'));    
+});
 
 server.listen(PORT, () => {
     connectToMongoDB();
